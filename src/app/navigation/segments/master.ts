@@ -35,13 +35,13 @@ export const master: NavigationTree = {
    
     },
    
-    {
-      id: "year",
-      type: "item",
-      title: "Year",
-      path: "/master/year",
+    // {
+    //   id: "year",
+    //   type: "item",
+    //   title: "Year",
+    //   path: "/master/year",
   
-    },
+    // },
     //  {
     //   id: "color",
     //   type: "item",

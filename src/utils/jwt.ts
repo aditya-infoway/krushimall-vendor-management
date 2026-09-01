@@ -6,7 +6,7 @@ const storage = Capacitor.isNativePlatform()
   ? localStorage
   : sessionStorage;
 
-const LOGIN_PATH = "/krushimall-admin/login";
+const LOGIN_PATH = "/krushimall-adminvendor/login";
 
 const isTokenValid = (authToken: string): boolean => {
   try {

@@ -31,7 +31,7 @@ import {
   DocumentArrowDownIcon,
 } from "@heroicons/react/20/solid";
 import { DatePicker } from "@/components/shared/form/Datepicker";
-import apiHelper from "@/utils/apiHelper";
+// import apiHelper from "@/utils/apiHelper";
 
 // ---------- Types ----------
 interface MainTableRow {
@@ -86,28 +86,28 @@ export default function Dashboard() {
     Upcoming: 0,
   });
 
-const fetchFollowUpCounts = async () => {
-  try {
-    const res = await apiHelper.get("/followup/board");
+// const fetchFollowUpCounts = async () => {
+//   try {
+//     // const res = await apiHelper.get("/followup/board");
 
-    console.log(res);
+//     console.log(res);
 
-    const counts = res.counts || {
-      Pending: 0,
-      Attend: 0,
-      Delay: 0,
-      Upcoming: 0,
-    };
+//     const counts = res.counts || {
+//       Pending: 0,
+//       Attend: 0,
+//       Delay: 0,
+//       Upcoming: 0,
+//     };
 
-    setFollowUpCounts(counts);
-  } catch (error) {
-    console.error(error);
-  }
-};
+//     setFollowUpCounts(counts);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
-  React.useEffect(() => {
-    fetchFollowUpCounts();
-  }, []);
+  // React.useEffect(() => {
+  //   fetchFollowUpCounts();
+  // }, []);
 
 const totalFollowUps = followUpCounts.Pending + followUpCounts.Attend;
 
