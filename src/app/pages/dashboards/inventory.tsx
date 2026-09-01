@@ -29,7 +29,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { DatePicker } from "@/components/shared/form/Datepicker";
 import { useState,useEffect } from "react";
-import apiHelper from "@/utils/apiHelper";
+// import apiHelper from "@/utils/apiHelper";
 // ---------- Types ----------
 // interface Member {
 //   id: number;
@@ -163,83 +163,83 @@ const formatDateParam = (date: Date | string) => {
   return `${yyyy}-${mm}-${dd}`;
 };
 
-const fetchInventoryAnalysis = async () => {
-  try {
-    const params = new URLSearchParams();
-    const from = fromDate ? formatDateParam(fromDate) : "";
-    const to = toDate ? formatDateParam(toDate) : "";
+// const fetchInventoryAnalysis = async () => {
+//   try {
+//     const params = new URLSearchParams();
+//     const from = fromDate ? formatDateParam(fromDate) : "";
+//     const to = toDate ? formatDateParam(toDate) : "";
 
-    if (from) params.append("fromDate", from);
-    if (to) params.append("toDate", to);
+//     if (from) params.append("fromDate", from);
+//     if (to) params.append("toDate", to);
 
-    const res = await apiHelper.get(
-      `/purchases/model-analysis?${params.toString()}`,
-    );
+//     const res = await apiHelper.get(
+//       `/purchases/model-analysis?${params.toString()}`,
+//     );
 
-    const analysis = res.data.modelAnalysis || [];
+//     const analysis = res.data.modelAnalysis || [];
 
-    setModelAnalysisData(
-      analysis.map((item: any) => ({
-        model: item.model,
-        present: item.present,
-        transit: item.transit,
-        purchase: item.purchase,
-        sales: item.sales,
-      })),
-    );
+//     setModelAnalysisData(
+//       analysis.map((item: any) => ({
+//         model: item.model,
+//         present: item.present,
+//         transit: item.transit,
+//         purchase: item.purchase,
+//         sales: item.sales,
+//       })),
+//     );
 
-    setPieChartData(res.data.pieData || []);
-  } catch (error) {
-    console.error("Failed to fetch inventory analysis:", error);
-  }
-};
+//     setPieChartData(res.data.pieData || []);
+//   } catch (error) {
+//     console.error("Failed to fetch inventory analysis:", error);
+//   }
+// };
 
-const fetchInventoryDetails = async () => {
-  try {
-    const params = new URLSearchParams();
-    const from = fromDate ? formatDateParam(fromDate) : "";
-    const to = toDate ? formatDateParam(toDate) : "";
+// const fetchInventoryDetails = async () => {
+//   try {
+//     const params = new URLSearchParams();
+//     const from = fromDate ? formatDateParam(fromDate) : "";
+//     const to = toDate ? formatDateParam(toDate) : "";
 
-    if (from) params.append("fromDate", from);
-    if (to) params.append("toDate", to);
+//     if (from) params.append("fromDate", from);
+//     if (to) params.append("toDate", to);
 
-    const res = await apiHelper.get(
-      `/purchases/inventory-details?${params.toString()}`,
-    );
-    setMainTableData(res.data || []);
-  } catch (error) {
-    console.error("Failed to fetch inventory details:", error);
-  }
-};
+//     const res = await apiHelper.get(
+//       `/purchases/inventory-details?${params.toString()}`,
+//     );
+//     setMainTableData(res.data || []);
+//   } catch (error) {
+//     console.error("Failed to fetch inventory details:", error);
+//   }
+// };
 
-const fetchLeadSummary = async () => {
-  try {
-    const res = await apiHelper.get("/leads");
+// const fetchLeadSummary = async () => {
+//   try {
+//     const res = await apiHelper.get("/leads");
 
-    let leads = res.data;
+//     let leads = res.data;
 
-    if (fromDate) {
-      const start = new Date(fromDate); // string ho ya Date, dono se valid Date banta hai
-      start.setHours(0, 0, 0, 0);
-      leads = leads.filter((l: any) => new Date(l.createdAt) >= start);
-    }
-    if (toDate) {
-      const end = new Date(toDate);
-      end.setHours(23, 59, 59, 999);
-      leads = leads.filter((l: any) => new Date(l.createdAt) <= end);
-    }
+//     if (fromDate) {
+//       const start = new Date(fromDate); // string ho ya Date, dono se valid Date banta hai
+//       start.setHours(0, 0, 0, 0);
+//       leads = leads.filter((l: any) => new Date(l.createdAt) >= start);
+//     }
+//     if (toDate) {
+//       const end = new Date(toDate);
+//       end.setHours(23, 59, 59, 999);
+//       leads = leads.filter((l: any) => new Date(l.createdAt) <= end);
+//     }
 
-    setLeadSummary({
-      hot: leads.filter((l: any) => l.leadStatus === "Hot").length,
-      warm: leads.filter((l: any) => l.leadStatus === "Warm").length,
-      cold: leads.filter((l: any) => l.leadStatus === "Cold").length,
-      booked: leads.filter((l: any) => l.leadStatus === "Booked").length,
-      total: leads.length,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
+//     setLeadSummary({
+//       hot: leads.filter((l: any) => l.leadStatus === "Hot").length,
+//       warm: leads.filter((l: any) => l.leadStatus === "Warm").length,
+//       cold: leads.filter((l: any) => l.leadStatus === "Cold").length,
+//       booked: leads.filter((l: any) => l.leadStatus === "Booked").length,
+//       total: leads.length,
+//     });
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 const PIE_COLORS = ["#22c55e", "#3b82f6", "#8b5cf6"]; // Present, Transit, Booked
 
   // Pagination logic
@@ -250,11 +250,11 @@ const PIE_COLORS = ["#22c55e", "#3b82f6", "#8b5cf6"]; // Present, Transit, Booke
   const currentItems = mainTableData.slice(indexOfFirstItem, indexOfLastItem);
 
 
-useEffect(() => {
-  fetchLeadSummary();
-  fetchInventoryAnalysis();
-  fetchInventoryDetails();
-}, [fromDate, toDate]);
+// useEffect(() => {
+//   fetchLeadSummary();
+//   fetchInventoryAnalysis();
+//   fetchInventoryDetails();
+// }, [fromDate, toDate]);
   const getPageNumbers = () => {
     const pages = [];
     const maxVisible = 12;
@@ -343,11 +343,11 @@ useEffect(() => {
 
             {/* Refresh Button */}
            <button
-  onClick={() => {
-    fetchLeadSummary();
-    fetchInventoryAnalysis();
-    fetchInventoryDetails();
-  }}
+  // onClick={() => {
+  //   fetchLeadSummary();
+  //   fetchInventoryAnalysis();
+  //   fetchInventoryDetails();
+  // }}
   className="dark:border-dark-600 dark:bg-dark-700 dark:hover:bg-dark-600 flex cursor-pointer items-center justify-center rounded-lg border border-gray-300 bg-white p-1.5 text-gray-600 hover:bg-gray-50 sm:p-2 dark:text-gray-300"
 >
   <ArrowPathIcon className="h-4 w-4" />
