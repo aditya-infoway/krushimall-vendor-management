@@ -106,7 +106,7 @@ const [confirmState, setConfirmState] = useState<"pending" | "success" | "error"
   const getSubCategories = async () => {
     try {
       setLoading(true);
-      const response = await apiHelper.get("/vendor-web/subcategory");
+      const response = await apiHelper.get("/vendoradmin/subcategory");
       let data = response?.data || response;
       if (!Array.isArray(data)) data = [];
 
@@ -141,7 +141,7 @@ const [confirmState, setConfirmState] = useState<"pending" | "success" | "error"
 
   const getCategories = async () => {
     try {
-      const response = await apiHelper.get("/vendor-web/category");
+      const response = await apiHelper.get("/vendoradmin/category");
       const data = response?.data || response;
       const list = (Array.isArray(data) ? data : []).map((item: any) => ({
         id: item.id || item._id,
@@ -241,7 +241,7 @@ const [confirmState, setConfirmState] = useState<"pending" | "success" | "error"
     try {
       if (isBulkDelete) {
         await Promise.all(
-          selectedIds.map((id) => apiHelper.delete(`/vendor-web/subcategory/${id}`)),
+          selectedIds.map((id) => apiHelper.delete(`/vendoradmin/subcategory/${id}`)),
         );
         toast.success(`${selectedIds.length} subcategories deleted successfully!`);
         await getSubCategories();
@@ -250,7 +250,7 @@ const [confirmState, setConfirmState] = useState<"pending" | "success" | "error"
         setConfirmState("success");
       } else {
         if (deleteTargetId === null) return;
-        await apiHelper.delete(`/vendor-web/subcategory/${deleteTargetId}`);
+        await apiHelper.delete(`/vendoradmin/subcategory/${deleteTargetId}`);
         toast.success("Subcategory deleted successfully!");
         await getSubCategories();
         setDeleteTargetId(null);
@@ -273,7 +273,7 @@ const [confirmState, setConfirmState] = useState<"pending" | "success" | "error"
     if (!item) return;
     try {
       const newStatus = item.status === "ACTIVE" ? "INACTIVE" : "ACTIVE";
-      await apiHelper.put(`/vendor-web/subcategory/${id}`, {
+      await apiHelper.put(`/vendoradmin/subcategory/${id}`, {
         subCategoryName: item.subCategoryName,
         categoryId: item.categoryId,
         status: newStatus,
@@ -299,10 +299,10 @@ const [confirmState, setConfirmState] = useState<"pending" | "success" | "error"
         const blob = await response.blob();
         formData.append("image", blob, "subcategory-image.jpg");
         if (editId !== null) {
-          await apiHelper.put(`/vendor-web/subcategory/${editId}`, formData);
+          await apiHelper.put(`/vendoradmin/subcategory/${editId}`, formData);
           toast.success("Subcategory updated successfully!");
         } else {
-          await apiHelper.post("/vendor-web/subcategory", formData);
+          await apiHelper.post("/vendoradmin/subcategory", formData);
           toast.success("Subcategory created successfully!");
         }
       } else {
@@ -314,10 +314,10 @@ const [confirmState, setConfirmState] = useState<"pending" | "success" | "error"
         if (data.image && !data.image.startsWith("data:"))
           payload.image = data.image;
         if (editId !== null) {
-          await apiHelper.put(`/vendor-web/subcategory/${editId}`, payload);
+          await apiHelper.put(`/vendoradmin/subcategory/${editId}`, payload);
           toast.success("Subcategory updated successfully!");
         } else {
-          await apiHelper.post("/vendor-web/subcategory", payload);
+          await apiHelper.post("/vendoradmin/subcategory", payload);
           toast.success("Subcategory created successfully!");
         }
       }

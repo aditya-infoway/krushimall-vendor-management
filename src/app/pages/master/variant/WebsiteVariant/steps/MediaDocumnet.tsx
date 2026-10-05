@@ -190,7 +190,7 @@ export function MediaDocumnet({
       });
 
       await apiHelper.put(
-        `/website-variants/${websiteVariantId}/save-step`,
+        `/vendoradmin/website-variants/${websiteVariantId}/save-step`,
         formData,
         {
           headers: {

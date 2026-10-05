@@ -124,7 +124,7 @@ export default function Category() {
   const getCategories = async () => {
     try {
       setLoading(true);
-      const response = await apiHelper.get("/vendor-web/category");
+      const response = await apiHelper.get("/vendoradmin/category");
      
 
       let categoriesData = [];
@@ -239,7 +239,7 @@ export default function Category() {
     try {
       if (isBulkDelete) {
         await Promise.all(
-          selectedIds.map((id) => apiHelper.delete(`/vendor-web/category/${id}`)),
+          selectedIds.map((id) => apiHelper.delete(`/vendoradmin/category/${id}`)),
         );
         toast.success(`${selectedIds.length} categories deleted successfully!`);
         await getCategories();
@@ -248,7 +248,7 @@ export default function Category() {
         setConfirmState("success");
       } else {
         if (deleteTargetId === null) return;
-        await apiHelper.delete(`/vendor-web/category/${deleteTargetId}`);
+        await apiHelper.delete(`/vendoradmin/category/${deleteTargetId}`);
         toast.success("Category deleted successfully!");
         await getCategories();
         setDeleteTargetId(null);
@@ -273,7 +273,7 @@ export default function Category() {
     try {
       const newStatus = category.status === "ACTIVE" ? "INACTIVE" : "ACTIVE";
 
-      await apiHelper.put(`/vendor-web/category/${id}`, {
+      await apiHelper.put(`/vendoradmin/category/${id}`, {
         categoryName: category.categoryName || category.name,
         status: newStatus, // ✅ Send the toggled status
       });
@@ -320,10 +320,10 @@ export default function Category() {
 
      
       if (editId !== null) {
-        await apiHelper.put(`/vendor-web/category/${editId}`, formData);
+        await apiHelper.put(`/vendoradmin/category/${editId}`, formData);
         toast.success("Category updated successfully!");
       } else {
-        await apiHelper.post("/vendor-web/category", formData);
+        await apiHelper.post("/vendoradmin/category", formData);
         toast.success("Category created successfully!");
       }
 

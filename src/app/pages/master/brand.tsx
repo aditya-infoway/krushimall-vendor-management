@@ -94,7 +94,7 @@ export default function Brand() {
   const getBrands = async () => {
     try {
       setLoading(true);
-      const response = await apiHelper.get("/vendor-web/brand");
+      const response = await apiHelper.get("/vendoradmin/brand");
 
       let brandsData = [];
       if (response && response.data && Array.isArray(response.data)) {
@@ -213,7 +213,7 @@ export default function Brand() {
     try {
       if (isBulkDelete) {
         await Promise.all(
-          selectedIds.map((id) => apiHelper.delete(`/vendor-web/brand/${id}`)),
+          selectedIds.map((id) => apiHelper.delete(`/vendoradmin/brand/${id}`)),
         );
         toast.success(`${selectedIds.length} brands deleted successfully!`);
         await getBrands();
@@ -222,7 +222,7 @@ export default function Brand() {
         setConfirmState("success");
       } else {
         if (deleteTargetId === null) return;
-        await apiHelper.delete(`/vendor-web/brand/${deleteTargetId}`);
+        await apiHelper.delete(`/vendoradmin/brand/${deleteTargetId}`);
         toast.success("Brand deleted successfully!");
         await getBrands();
         setDeleteTargetId(null);
@@ -247,7 +247,7 @@ export default function Brand() {
     try {
       const newStatus = brand.status === "ACTIVE" ? "INACTIVE" : "ACTIVE";
 
-      await apiHelper.put(`/vendor-web/brand/${id}`, {
+      await apiHelper.put(`/vendoradmin/brand/${id}`, {
         brandName: brand.brandName || brand.name,
         status: newStatus,
       });
@@ -279,10 +279,10 @@ export default function Brand() {
         formData.append("image", blob, "brand-image.jpg");
 
         if (editId !== null) {
-          await apiHelper.put(`/vendor-web/brand/${editId}`, formData);
+          await apiHelper.put(`/vendoradmin/brand/${editId}`, formData);
           toast.success("Brand updated successfully!");
         } else {
-          await apiHelper.post("/vendor-web/brand", formData);
+          await apiHelper.post("/vendoradmin/brand", formData);
           toast.success("Brand created successfully!");
         }
       } else {
@@ -296,10 +296,10 @@ export default function Brand() {
         }
 
         if (editId !== null) {
-          await apiHelper.put(`/vendor-web/brand/${editId}`, payload);
+          await apiHelper.put(`/vendoradmin/brand/${editId}`, payload);
           toast.success("Brand updated successfully!");
         } else {
-          await apiHelper.post("/vendor-web/brand", payload);
+          await apiHelper.post("/vendoradmin/brand", payload);
           toast.success("Brand created successfully!");
         }
       }
