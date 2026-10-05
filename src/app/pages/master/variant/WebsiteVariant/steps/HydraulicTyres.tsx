@@ -185,7 +185,7 @@ export function HydraulicTyres({
       currentStep: 4,
     };
 
-    await apiHelper.put(`/website-variants/${websiteVariantId}/save-step`, payload);
+    await apiHelper.put(`/vendoradmin/website-variants/${websiteVariantId}/save-step`, payload);
 
     kycFormCtx.dispatch({
       type: "SET_FORM_DATA",

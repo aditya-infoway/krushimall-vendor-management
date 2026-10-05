@@ -51,32 +51,32 @@ export const master: NavigationTree = {
     // },
 
     // Dropdown
-    // {
-    //   id: "variant",
-    //   type: "collapse",
-    //   title: "Variant",
-    //     path: "/master/variant", 
-    //   icon: "variant",
-    //   childs: [
-    //     {
-    //       id: "createvariant",
-    //       type: "item",
-    //       title: "Create Variant",
-    //       path: "/master/variant/create",
-    //     },
-    //     {
-    //       id: "websitevariant",
-    //       type: "item",
-    //       title: "Website Variant",
-    //       path: "/master/variant/website",
-    //     },
-    //     {
-    //       id: "showroomvariant",
-    //       type: "item",
-    //       title: "Showroom Variant",
-    //       path: "/master/variant/showroom",
-    //     },
-    //   ],
-    // },
+    {
+      id: "variant",
+      type: "collapse",
+      title: "Variant",
+        path: "/master/variant", 
+      icon: "variant",
+      childs: [
+        // {
+        //   id: "createvariant",
+        //   type: "item",
+        //   title: "Create Variant",
+        //   path: "/master/variant/create",
+        // },
+        {
+          id: "websitevariant",
+          type: "item",
+          title: "Website Variant",
+          path: "/master/variant/website",
+        },
+        // {
+        //   id: "showroomvariant",
+        //   type: "item",
+        //   title: "Showroom Variant",
+        //   path: "/master/variant/showroom",
+        // },
+      ],
+    },
   ],
 };

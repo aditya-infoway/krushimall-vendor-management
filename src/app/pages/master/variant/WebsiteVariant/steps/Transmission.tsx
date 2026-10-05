@@ -183,7 +183,7 @@ export function Transmission({
       };
 
       await apiHelper.put(
-        `/website-variants/${websiteVariantId}/save-step`,
+        `/vendoradmin/website-variants/${websiteVariantId}/save-step`,
         payload,
       );
 

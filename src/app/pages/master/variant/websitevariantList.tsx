@@ -193,7 +193,7 @@ useEffect(() => {
     try {
       setLoading(true);
 
-      const res = await apiHelper.get("/website-variants");
+      const res = await apiHelper.get("/vendoradmin/website-variants");
 
       setVariants(res.data.data || res.data);
     } catch (error) {
@@ -347,7 +347,7 @@ const matchesYearDropdown =
     setConfirmLoading(true);
     try {
       if (isBulkDelete) {
-        await apiHelper.post("/website-variants/bulk-delete", {
+        await apiHelper.post("/vendoradmin/website-variants/bulk-delete", {
           ids: selectedIds,
         });
         toast.success(
@@ -359,7 +359,7 @@ const matchesYearDropdown =
         setConfirmState("success");
       } else {
         if (deleteTargetId === null) return;
-        await apiHelper.delete(`/website-variants/${deleteTargetId}`);
+        await apiHelper.delete(`/vendoradmin/website-variants/${deleteTargetId}`);
         toast.success("Website variant deleted successfully!");
         await fetchVariants();
         setSelectedIds((prev) => prev.filter((id) => id !== deleteTargetId));
@@ -391,7 +391,7 @@ const matchesYearDropdown =
         ),
       );
 
-      await apiHelper.patch(`/website-variants/${id}/toggle-status`);
+      await apiHelper.patch(`/vendoradmin/website-variants/${id}/toggle-status`);
     } catch (error) {
       console.error("Toggle failed:", error);
 

@@ -111,7 +111,7 @@ export default function SubSubCategoryPage() {
   const getSubSubCategories = async () => {
     try {
       setLoading(true);
-      const response = await apiHelper.get("/vendor-web/subsubcategory");
+      const response = await apiHelper.get("/vendoradmin/subsubcategory");
       let data = response?.data || response;
       if (!Array.isArray(data)) data = [];
 
@@ -142,7 +142,7 @@ export default function SubSubCategoryPage() {
 
   const getCategories = async () => {
     try {
-      const response = await apiHelper.get("/vendor-web/category");
+      const response = await apiHelper.get("/vendoradmin/category");
       const data = response?.data || response;
       const list = (Array.isArray(data) ? data : []).map((item: any) => ({
         id: item.id || item._id,
@@ -156,7 +156,7 @@ export default function SubSubCategoryPage() {
 
   const getSubCategories = async () => {
     try {
-      const response = await apiHelper.get("/vendor-web/subcategory");
+      const response = await apiHelper.get("/vendoradmin/subcategory");
       const data = response?.data || response;
       const list: SubCategoryOption[] = (Array.isArray(data) ? data : []).map(
         (item: any) => ({
@@ -262,7 +262,7 @@ export default function SubSubCategoryPage() {
     try {
       if (isBulkDelete) {
         await Promise.all(
-          selectedIds.map((id) => apiHelper.delete(`/vendor-web/subsubcategory/${id}`)),
+          selectedIds.map((id) => apiHelper.delete(`/vendoradmin/subsubcategory/${id}`)),
         );
         toast.success(`${selectedIds.length} sub-subcategories deleted successfully!`);
         await getSubSubCategories();
@@ -271,7 +271,7 @@ export default function SubSubCategoryPage() {
         setConfirmState("success");
       } else {
         if (deleteTargetId === null) return;
-        await apiHelper.delete(`/vendor-web/subsubcategory/${deleteTargetId}`);
+        await apiHelper.delete(`/vendoradmin/subsubcategory/${deleteTargetId}`);
         toast.success("Sub-subcategory deleted successfully!");
         await getSubSubCategories();
         setDeleteTargetId(null);
@@ -294,7 +294,7 @@ export default function SubSubCategoryPage() {
     if (!item) return;
     try {
       const newStatus = item.status === "ACTIVE" ? "INACTIVE" : "ACTIVE";
-      await apiHelper.put(`/vendor-web/subsubcategory/${id}`, {
+      await apiHelper.put(`/vendoradmin/subsubcategory/${id}`, {
         subSubCategoryName: item.subSubCategoryName,
         subCategoryId: item.subCategoryId,
         status: newStatus,
@@ -320,10 +320,10 @@ export default function SubSubCategoryPage() {
         const blob = await response.blob();
         formData.append("image", blob, "subsubcategory-image.jpg");
         if (editId !== null) {
-          await apiHelper.put(`/vendor-web/subsubcategory/${editId}`, formData);
+          await apiHelper.put(`/vendoradmin/subsubcategory/${editId}`, formData);
           toast.success("Sub-subcategory updated successfully!");
         } else {
-          await apiHelper.post("/vendor-web/subsubcategory", formData);
+          await apiHelper.post("/vendoradmin/subsubcategory", formData);
           toast.success("Sub-subcategory created successfully!");
         }
       } else {
@@ -335,10 +335,10 @@ export default function SubSubCategoryPage() {
         if (data.image && !data.image.startsWith("data:"))
           payload.image = data.image;
         if (editId !== null) {
-          await apiHelper.put(`/vendor-web/subsubcategory/${editId}`, payload);
+          await apiHelper.put(`/vendoradmin/subsubcategory/${editId}`, payload);
           toast.success("Sub-subcategory updated successfully!");
         } else {
-          await apiHelper.post("/vendor-web/subsubcategory", payload);
+          await apiHelper.post("/vendoradmin/subsubcategory", payload);
           toast.success("Sub-subcategory created successfully!");
         }
       }

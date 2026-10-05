@@ -237,12 +237,12 @@ export function BasicInformation({
       if (websiteVariantId) {
         // UPDATE — existing record (edit mode ya already-created record)
         await apiHelper.put(
-          `/website-variants/${websiteVariantId}/save-step`,
+          `/vendoradmin/website-variants/${websiteVariantId}/save-step`,
           payload,
         );
       } else {
         // CREATE — sirf tab jab genuinely naya record ban raha ho
-        const res = await apiHelper.post("/website-variants", payload);
+        const res = await apiHelper.post("/vendoradmin/website-variants", payload);
         const newVariantId = res.data.id;
         setWebsiteVariantId(String(newVariantId));
       }

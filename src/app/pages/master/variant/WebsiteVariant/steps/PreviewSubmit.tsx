@@ -77,7 +77,7 @@ export function PreviewSubmit({
    
         if (!websiteVariantId) return;
 
-      const res = await apiHelper.get(`/website-variants/${websiteVariantId}`);
+      const res = await apiHelper.get(`/vendoradmin/website-variants/${websiteVariantId}`);
 
       console.log("Full API Response =>", res.data);
       console.log("Variant Data =>", res.data.data);
@@ -111,7 +111,7 @@ export function PreviewSubmit({
       return;
     }
 
-    await apiHelper.put(`/website-variants/${websiteVariantId}/submit`, {
+    await apiHelper.put(`/vendoradmin/website-variants/${websiteVariantId}/submit`, {
       agreed,
     });
 
