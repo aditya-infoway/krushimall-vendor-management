@@ -24,10 +24,12 @@ import {
   MagnifyingGlassIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
+  ArrowUpTrayIcon
 } from "@heroicons/react/24/outline";
 import { toast } from "sonner";
 import { ConfirmModal } from "@/components/shared/ConfirmModal";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import ImportWebsiteVariantsModal from "./WebsiteVariant/ImportWebsiteVariantsModal"; // apna path
 
 // Local UI Imports
 import { Button, Checkbox } from "@/components/ui";
@@ -85,7 +87,7 @@ export default function WebsiteVariantList() {
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-
+const [showImport, setShowImport] = useState(false);
   // Search and filter states
   const [search, setSearch] = useState("");
   const [showFilterBar, setShowFilterBar] = useState(false);
@@ -426,7 +428,15 @@ const matchesYearDropdown =
               <FunnelIcon className="size-4.5" />
               <span className="hidden sm:inline">Filter</span>
             </button>
-
+<button
+  type="button"
+  onClick={() => setShowImport(true)}
+  className="dark:bg-dark-800 dark:border-dark-500 dark:text-dark-200 inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-50"
+  title="Import"
+>
+  <ArrowUpTrayIcon className="size-4.5" />
+  <span className="hidden sm:inline">Import</span>
+</button>
             <button
               type="button"
               className="dark:bg-dark-800 dark:border-dark-500 dark:text-dark-200 inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-50"
@@ -940,6 +950,14 @@ const matchesYearDropdown =
           </div>
         </div>
       )}
+      <ImportWebsiteVariantsModal
+  open={showImport}
+  onClose={() => setShowImport(false)}
+  onImported={() => {
+    fetchVariants();
+    setCurrentPage(1);
+  }}
+/>
       {/* Confirmation Modal */}
       <ConfirmModal
         show={showConfirmModal}
