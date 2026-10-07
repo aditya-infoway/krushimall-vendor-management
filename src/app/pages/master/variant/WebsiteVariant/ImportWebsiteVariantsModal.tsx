@@ -294,7 +294,7 @@ const handleImport = async () => {
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
             Import Website Variants
           </h2>
-          <button type="button" onClick={handleClose} className="text-gray-400 hover:text-gray-600">
+          <button type="button" onClick={handleClose} className="text-gray-400 hover:text-gray-600 cursor-pointer">
             <XMarkIcon className="size-5" />
           </button>
         </div>
@@ -303,7 +303,7 @@ const handleImport = async () => {
           <button
             type="button"
             onClick={downloadTemplate}
-            className="text-primary-600 flex items-center gap-2 text-sm font-medium hover:underline"
+            className="text-primary-600 flex items-center gap-2 text-sm font-medium hover:underline cursor-pointer"
           >
             <ArrowDownTrayIcon className="size-4" />
             Download sample template

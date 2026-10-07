@@ -431,7 +431,7 @@ const matchesYearDropdown =
 <button
   type="button"
   onClick={() => setShowImport(true)}
-  className="dark:bg-dark-800 dark:border-dark-500 dark:text-dark-200 inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-50"
+  className="dark:bg-dark-800 dark:border-dark-500 dark:text-dark-200 inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-50 cursor-pointer"
   title="Import"
 >
   <ArrowUpTrayIcon className="size-4.5" />
