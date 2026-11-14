@@ -6,7 +6,7 @@ import axios from "@/utils/axios";
 import { isTokenValid, setSession, storage } from "@/utils/jwt";
 import { AuthProvider as AuthContext, AuthContextType } from "./context";
 import { User } from "@/@types/user";
-
+import { redirectToAdminLogin } from "@/utils/redirectToAdminLogin";
 // ----------------------------------------------------------------------
 
 interface AuthAction {
@@ -161,11 +161,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = async () => {
     setSession(null);
 
-    // Remove selected company/session values if required
+    // Selected company/session values hatao
     sessionStorage.removeItem("companyId");
     sessionStorage.removeItem("financialYearId");
 
     dispatch({ type: "LOGOUT" });
+
+    // Admin app ke login page par bhejo (full reload)
+    redirectToAdminLogin();
   };
 
   if (!children) {
