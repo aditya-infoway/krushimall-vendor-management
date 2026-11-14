@@ -250,10 +250,10 @@ export default function CreateProduct() {
     (async () => {
       try {
         const [catRes, subCatRes, subSubCatRes, brandRes] = await Promise.all([
-          apiHelper.get("/vendor-web/category"),
-          apiHelper.get("/vendor-web/subcategory"),
-          apiHelper.get("/vendor-web/subsubcategory"),
-          apiHelper.get("/vendor-web/brand"),
+          apiHelper.get("/vendoradmin/category"),
+          apiHelper.get("/vendoradmin/subcategory"),
+          apiHelper.get("/vendoradmin/subsubcategory"),
+          apiHelper.get("/vendoradmin/brand"),
         ]);
 
         const catData = (catRes?.data || catRes || []) as any[];
@@ -546,7 +546,7 @@ export default function CreateProduct() {
     // =========================
 
     await apiHelper.post(
-      "/vendor-web/product",
+      "/vendoradmin/product",
       formData,
     );
 

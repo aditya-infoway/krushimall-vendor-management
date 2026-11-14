@@ -94,7 +94,7 @@ export default function ProductList() {
   const getProducts = async () => {
     try {
       setLoading(true);
-      const response = await apiHelper.get("/vendor-web/product");
+      const response = await apiHelper.get("/vendoradmin/product");
       let data = response?.data || response;
       if (!Array.isArray(data)) data = [];
 
@@ -133,7 +133,7 @@ export default function ProductList() {
 
   const getCategories = async () => {
     try {
-      const response = await apiHelper.get("/vendor-web/category");
+      const response = await apiHelper.get("/vendoradmin/category");
       const data = response?.data || response;
       const list = (Array.isArray(data) ? data : []).map((item: any) => ({
         id: item.id || item._id,
@@ -195,7 +195,7 @@ export default function ProductList() {
     try {
       if (isBulkDelete) {
         await Promise.all(
-          selectedIds.map((id) => apiHelper.delete(`/vendor-web/product/${id}`)),
+          selectedIds.map((id) => apiHelper.delete(`/vendoradmin/product/${id}`)),
         );
         toast.success(`${selectedIds.length} products deleted successfully!`);
         await getProducts();
@@ -204,7 +204,7 @@ export default function ProductList() {
         setConfirmState("success");
       } else {
         if (deleteTargetId === null) return;
-        await apiHelper.delete(`/vendor-web/product/${deleteTargetId}`);
+        await apiHelper.delete(`/vendoradmin/product/${deleteTargetId}`);
         toast.success("Product deleted successfully!");
         await getProducts();
         setDeleteTargetId(null);
