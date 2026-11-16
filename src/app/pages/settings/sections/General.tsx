@@ -618,22 +618,12 @@ export default function General() {
           </>
         )}
       </div>
-      <div className="dark:bg-dark-500 my-7 h-px bg-gray-200" />
-      <div className="mt-8">
+      {/* <div className="dark:bg-dark-500 my-7 h-px bg-gray-200" /> */}
+      {/* <div className="mt-8">
         <h3 className="mb-4 text-lg font-semibold">Prefix Settings</h3>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          {/* <Input
-            label="Prefix For"
-            value={newPrefix.prefixFor}
-            onChange={(e) =>
-              setNewPrefix({
-                ...newPrefix,
-                prefixFor: e.target.value.toUpperCase(),
-              })
-            }
-            placeholder="CUSTOMER"
-          /> */}
+     
           <div>
             <label className="mb-1 inline-block">Prefix For</label>
 
@@ -672,8 +662,8 @@ export default function General() {
             </Button>
           </div>
         </div>
-      </div>
-      <div className="mt-6 max-h-125 overflow-auto rounded-lg border border-gray-700">
+      </div> */}
+      {/* <div className="mt-6 max-h-125 overflow-auto rounded-lg border border-gray-700">
         <table className="w-full border-collapse">
           <thead className="sticky top-0 z-0 bg-white dark:bg-gray-900">
             <tr>
@@ -712,8 +702,8 @@ export default function General() {
             ))}
           </tbody>
         </table>
-      </div>
-      <div className="mt-8">
+      </div> */}
+      {/* <div className="mt-8">
         <h3 className="mb-4 text-lg font-semibold">
           Quotation Terms & Conditions
         </h3>
@@ -739,7 +729,7 @@ export default function General() {
             {savingTerms ? "Saving..." : "Save Terms & Conditions"}
           </Button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

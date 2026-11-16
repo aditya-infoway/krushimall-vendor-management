@@ -18,6 +18,7 @@ import { Avatar, AvatarDot, Button } from "@/components/ui";
 import { ColorType } from "@/constants/app";
 import { useEffect, useState } from "react";
 import apiHelper from "@/utils/apiHelper";
+import { useAuthContext } from "@/app/contexts/auth/context";
 // Define Link Types
 interface LinkItem {
   id: string;
@@ -37,30 +38,30 @@ const links: LinkItem[] = [
     Icon: TbUser,
     color: "warning",
   },
-  {
-    id: "2",
-    title: "Messages",
-    description: "Your messages and tasks",
-    to: "/apps/chat",
-    Icon: ChatBubbleLeftIcon,
-    color: "info",
-  },
-  {
-    id: "3",
-    title: "Team",
-    description: "Your team members",
-    to: "#",
-    Icon: TbUsersGroup,
-    color: "secondary",
-  },
-  {
-    id: "4",
-    title: "Billing",
-    description: "Your billing information",
-    to: "/settings/billing",
-    Icon: TbCoins,
-    color: "error",
-  },
+  // {
+  //   id: "2",
+  //   title: "Messages",
+  //   description: "Your messages and tasks",
+  //   to: "/apps/chat",
+  //   Icon: ChatBubbleLeftIcon,
+  //   color: "info",
+  // },
+  // {
+  //   id: "3",
+  //   title: "Team",
+  //   description: "Your team members",
+  //   to: "#",
+  //   Icon: TbUsersGroup,
+  //   color: "secondary",
+  // },
+  // {
+  //   id: "4",
+  //   title: "Billing",
+  //   description: "Your billing information",
+  //   to: "/settings/billing",
+  //   Icon: TbCoins,
+  //   color: "error",
+  // },
   {
     id: "5",
     title: "Settings",
@@ -75,7 +76,7 @@ const links: LinkItem[] = [
 
 export function Profile() {
   const [company, setCompany] = useState<any>(null);
-
+  const { logout } = useAuthContext();
   useEffect(() => {
     fetchCompany();
   }, []);
@@ -171,7 +172,7 @@ const getCompanyLogo = () => {
 
                 {/* Logout Button */}
                 <div className="px-4 pt-4">
-                  <Button className="w-full gap-2">
+                        <Button className="w-full gap-2" onClick={() => logout()}>
                     <ArrowLeftStartOnRectangleIcon className="size-4.5" />
                     <span>Logout</span>
                   </Button>
