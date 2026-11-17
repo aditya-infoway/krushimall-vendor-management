@@ -44,7 +44,7 @@ const TEMPLATE_HEADERS: string[] = [
 
 const SAMPLE_DATA: Record<string, any> = {
   // Basic (names DB master data se exactly match hone chahiye)
-   "Category": "Tractors",
+  "Category": "Tractors",
   "Brand": "Eicher",
   "Model": "EICHER 551",
   "Model Year": "2024",
@@ -162,6 +162,7 @@ const SAMPLE_DATA: Record<string, any> = {
   "Landmark": "Krushi Mall Showroom",
   "Full Address": "Krushi Mall Showroom, Ahmedabad, Gujarat, India - 380001",
 };
+
 type Props = {
   open: boolean;
   onClose: () => void;
@@ -189,30 +190,30 @@ export default function ImportWebsiteVariantsModal({ open, onClose, onImported }
     onClose();
   };
 
-const downloadTemplate = async () => {
-  try {
-    const wb = new ExcelJS.Workbook();
-    const ws = wb.addWorksheet("Products");
+  const downloadTemplate = async () => {
+    try {
+      const wb = new ExcelJS.Workbook();
+      const ws = wb.addWorksheet("Products");
 
-    ws.columns = TEMPLATE_HEADERS.map((h) => ({ header: h, width: 20 }));
-    ws.addRow(TEMPLATE_HEADERS.map((h) => SAMPLE_DATA[h] ?? ""));
-    ws.getRow(1).font = { bold: true };
+      ws.columns = TEMPLATE_HEADERS.map((h) => ({ header: h, width: 20 }));
+      ws.addRow(TEMPLATE_HEADERS.map((h) => SAMPLE_DATA[h] ?? ""));
+      ws.getRow(1).font = { bold: true };
 
-    const buf = await wb.xlsx.writeBuffer();
-    const blob = new Blob([buf], {
-      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-    });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "website-variant-import-template.xlsx";
-    a.click();
-    URL.revokeObjectURL(url);
-  } catch (e) {
-    console.error(e);
-    toast.error("Template download failed");
-  }
-};
+      const buf = await wb.xlsx.writeBuffer();
+      const blob = new Blob([buf], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "website-variant-import-template.xlsx";
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (e) {
+      console.error(e);
+      toast.error("Template download failed");
+    }
+  };
 
   const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -242,48 +243,56 @@ const downloadTemplate = async () => {
     }
   };
 
-const handleImport = async () => {
-  if (!rows.length) return;
-  try {
-    setLoading(true);
+  const handleImport = async () => {
+    if (!rows.length) return;
+    try {
+      setLoading(true);
 
-    const CHUNK = 100;
-    const total = { created: 0, failed: 0, errors: [] as any[], ignoredColumns: [] as string[] };
+      const CHUNK = 100;
+      const total = { created: 0, failed: 0, errors: [] as any[], ignoredColumns: [] as string[] };
 
-    for (let start = 0; start < rows.length; start += CHUNK) {
-      const chunk = rows.slice(start, start + CHUNK);
-      const res: any = await apiHelper.post("/vendoradmin/website-variants/import", {
-        rows: chunk,
-      });
-      const body = res?.data;
-      const data = body?.data ?? body;
+      for (let start = 0; start < rows.length; start += CHUNK) {
+        const chunk = rows.slice(start, start + CHUNK);
+        const res: any = await apiHelper.post("/vendoradmin/website-variants/import", {
+          rows: chunk,
+        });
+        const body = res?.data;
+        const data = body?.data ?? body;
 
-      total.created += data.created || 0;
-      total.failed += data.failed || 0;
-      // row number original Excel row ke hisaab se adjust karo
-      (data.errors || []).forEach((er: any) =>
-        total.errors.push({ row: er.row + start, message: er.message }),
-      );
-      total.ignoredColumns = Array.from(
-        new Set([...total.ignoredColumns, ...(data.ignoredColumns || [])]),
-      );
+        total.created += data.created || 0;
+        total.failed += data.failed || 0;
+        // row number original Excel row ke hisaab se adjust karo
+        (data.errors || []).forEach((er: any) =>
+          total.errors.push({ row: er.row + start, message: er.message }),
+        );
+        total.ignoredColumns = Array.from(
+          new Set([...total.ignoredColumns, ...(data.ignoredColumns || [])]),
+        );
+      }
+
+      setResult(total);
+
+      if (total.created > 0) {
+        toast.success(`${total.created} products imported`);
+        onImported?.();
+
+        if (total.failed === 0) {
+          // sab rows import ho gayi -> modal band kar do
+          handleClose();
+        } else {
+          // kuch rows fail hui -> modal khula rakho taaki errors dikh sakein
+          toast.warning(`${total.failed} rows failed. Details modal me dekho.`);
+        }
+      } else {
+        toast.error("No products were imported");
+      }
+    } catch (err: any) {
+      console.error(err);
+      toast.error(err?.response?.data?.message || "Import failed");
+    } finally {
+      setLoading(false);
     }
-
-    setResult(total);
-
-    if (total.created > 0) {
-      toast.success(`${total.created} products imported`);
-      onImported?.();
-    } else {
-      toast.error("No products were imported");
-    }
-  } catch (err: any) {
-    console.error(err);
-    toast.error(err?.response?.data?.message || "Import failed");
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   const previewHeaders = rows[0] ? Object.keys(rows[0]).slice(0, 6) : [];
 
