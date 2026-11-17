@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { SetStateAction, Dispatch } from "react";
 
 // Local Imports
-import Logo from "@/assets/appLogo.svg?react";
+// import Logo from "@/assets/appLogo.svg?react";
 import { Menu } from "./Menu";
 import { Item } from "./Menu/item";
 import { Profile } from "../../Profile";
@@ -38,9 +38,14 @@ export function MainPanel({
         )}
       >
         {/* Application Logo */}
+         {/* Application Logo */}
         <div className="flex pt-3.5">
           <Link to="/">
-            <Logo className="text-primary-600 dark:text-primary-400 size-10" />
+            <img
+              src={`${import.meta.env.BASE_URL}fevicon.png`}
+              alt="KrushiMall"
+              className="size-8 rounded-lg object-contain"
+            />
           </Link>
         </div>
 
